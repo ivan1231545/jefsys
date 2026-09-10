@@ -1,0 +1,10 @@
+*.o
+*.so
+*.a
+cat_armv7
+wc-file_armv7
+bbl64.bin
+*.bin
+__pycache__/
+*.pyc
+.DS_Store
