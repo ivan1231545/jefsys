@@ -1,0 +1,10 @@
+{
+  "hello-pkg": {
+    "version": "1.0.0",
+    "description": "\u0422\u0435\u0441\u0442\u043e\u0432\u044b\u0439 \u043f\u0430\u043a\u0435\u0442 \u0434\u043b\u044f jpkg",
+    "author": "jefsys",
+    "entry": "main.py",
+    "run": "main",
+    "path": "/data/data/com.termux/files/home/jefsys/sysdata/sysdata/packages/hello-pkg"
+  }
+}

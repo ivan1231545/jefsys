@@ -1,0 +1,8 @@
+{
+    "name": "hello-pkg",
+    "version": "1.0.0",
+    "description": "Тестовый пакет для jpkg",
+    "author": "jefsys",
+    "entry": "main.py",
+    "run": "main"
+}

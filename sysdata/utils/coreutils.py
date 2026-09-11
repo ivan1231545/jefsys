@@ -1,4 +1,5 @@
-import sys, os
+import sys, os, subprocess
+from sysdata.utils.helputils import color
 
 def cd(path: str) -> None:
     if os.path.exists(path):
@@ -10,9 +11,10 @@ def ls(path: str=".") -> None:
     with os.scandir(path) as entries:
         for entry in entries:
             if entry.is_file():
-                print(f"file: {entry}")
+                print(f"file: {entry.name}")
             if entry.is_dir():
-                print(f"dir:  {entry}")
+                print(f"dir:  {color(entry.name, "1;34")}")
+                
 
 def shell(cmd):
     try:
@@ -40,3 +42,17 @@ def echo(cmd: list) -> None:
     if not cmd:
         return
     print(" ".join(cmd).strip())
+
+def txtedit(path: str) -> None:
+    # Если файла нет — создаём пустой
+    if not os.path.exists(path):
+        open(path, 'a').close()
+
+    # Запускаем micro (или nano, если micro нет)
+    try:
+        subprocess.run(["micro", path])
+    except FileNotFoundError:
+        try:
+            subprocess.run(["nano", path])
+        except FileNotFoundError:
+            print("This programm uses micro or nano but no micro nor nano was found. Install it by running:\nlinux: apt intsall micro nano")
