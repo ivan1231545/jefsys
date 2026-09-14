@@ -1,5 +1,6 @@
 import sys, os, subprocess, random
 import readline
+import platform
 
 # читаем историю и обрабатываем команды "^[[C", "^[[A" и т.д.
 # Опционально: файл, где хранить историю между запусками
@@ -12,7 +13,7 @@ except FileNotFoundError:
 
 readline.set_history_length(1000)  # сколько команд хранить
 
-
+curarch = platform.machine()
 base_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(os.path.join(os.path.abspath(__file__), "sysdata", "utils", "coreutils.py"))  # если shell.py лежит рядом с sys/
 if root_dir not in sys.path:
@@ -79,11 +80,20 @@ def runcmd(cmd):
         case "randomnum":
             if len(cmd) < 2: return
             print(random.randint(int(cmd[1]), int(cmd[2])))
+        case "cat":
+            if len(cmd) < 2: return
+            result = subprocess.run(
+                [f"bin/{curarch}/cat_utility", cmd[1]],
+                capture_output=True,
+                text=True
+            )
+            print(result.stdout)
         case _:
              if cmd[0] == "":
                  return
+             if os.path.isfile(cmd[0]) &  cmd[0].endswith("jesh"):
+                runcmd(f". {cmd[0]}")
              print(f"No such cmd, programm, bash, or shell script: '{cmd[0]}'")
-        
 while True:
     try:
         if root:
